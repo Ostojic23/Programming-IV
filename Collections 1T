@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 /// DictionaryEntry sluci za Collection-e tipa koji oznacavaju Objekte tipa Key:Value.
 /// Svaki obj ima svoj kljuc koji ga prepoznaje i svoju vrednost. key1 != keyN
 /// 
-/// Stack i Queue NECE BITI
+/// Stack, Queue, ArrayList, SortedList, Hashtable 
+///
+/// Stack i Queue NECE BITI ma kontisu
 /// </summary>
 
 
