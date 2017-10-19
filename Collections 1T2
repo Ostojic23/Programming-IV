@@ -1,1 +1,117 @@
-// Dodacu tokom veceri jok koji zadatak
+using System;
+
+// Kreiranje klase Pesme
+public class Pesme
+{
+    public string naziv;
+    public string izvodjac;
+
+    public Pesme(string naziv, string izvodjac)
+    {
+        this.naziv = naziv;
+        this.izvodjac = izvodjac;
+    }
+    public override string ToString()
+    {
+        return this.izvodjac + " - " + naziv;
+    }
+}
+
+// Kreiranje klase nase kolekcije
+public class myCollection : System.Collections.CollectionBase // <-- Vazno da se doda -- System.Collections.CollectionBase. Ili ovde ili na pocetku programa
+{
+    public void Dodaj(Pesme pesma)
+    {
+        List.Add(pesma);
+    }
+    public void Obrisi(int indeks)
+    {
+        if (indeks > Count - 1 || indeks < 0)
+            Console.WriteLine("Pogrešan indeks");
+        else
+            List.RemoveAt(indeks);
+    }
+}
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Kreiranje zasebnog OBJEKTA iz klase Pesme
+        Pesme pesma1 = new Pesme("Trube", "Galija");
+        Pesme pesma2 = new Pesme("Tuga, ti i ja", "Crvena Jabuka");
+        Pesme pesma3 = new Pesme("Sve ce to mila moja", "Bijelo Dugme");
+        Pesme pesma4 = new Pesme("Jelena", "Bolero");
+        Pesme pesma5 = new Pesme("Rekla je", "Riblja Corba");
+        Pesme pesma6 = new Pesme("Gradske cure", "ITD Bend");
+        Pesme pesma7 = new Pesme("Cuvam noc od budnih", "Leb i sol");
+        Pesme pesma8 = new Pesme("Vino na usnama", "Vlado Kalember");
+
+        myCollection nasaKolekcija = new myCollection(); // Kreiranje nase kolekcije
+                                                         // Dodavanje istih u nasu kolekciju
+        nasaKolekcija.Dodaj(pesma1);
+        nasaKolekcija.Dodaj(pesma2);
+        nasaKolekcija.Dodaj(pesma3);
+        nasaKolekcija.Dodaj(pesma4);
+        nasaKolekcija.Dodaj(pesma5);
+        nasaKolekcija.Dodaj(pesma6);
+        nasaKolekcija.Dodaj(pesma7);
+        nasaKolekcija.Dodaj(pesma8);
+
+        // Prikazivanje broja elemenata u nasaKolekcija
+        Console.WriteLine("U kolekciji ima: " + nasaKolekcija.Count + " elemenata"); // Koristimo svojstvo - Count
+        Console.WriteLine();
+        printCollection(nasaKolekcija); // Ispis kolekcije
+        Console.WriteLine();
+        sortCollection(nasaKolekcija); // Sortiranje kolekcije
+        printCollection(nasaKolekcija); // Ispis sortirane kolekcije
+        Console.WriteLine();
+        nasaKolekcija.Obrisi(1); // Brisanje elementa sa ix 1
+        printCollection(nasaKolekcija); // Ispis kolekcije bez el sa ix 1
+
+        Console.ReadKey();
+    }
+    // Ove dve metode radite unutar glavne klase -- class Program -- u ovom slucaju
+    // Meto da ispis kolekcije
+    static void printCollection(myCollection kolekcija)
+    {
+        foreach (Pesme el in kolekcija)
+        {
+            Console.WriteLine(el);
+        }
+    }
+    // Metoda za sortiranje kolekcije po izvodjacima
+    static void sortCollection(myCollection collection)
+    {
+        // Ubacujemo elemente u 1D niz
+        int x = 0;
+        Pesme[] nizPesama = new Pesme[collection.Count];
+        foreach (Pesme el in collection)
+        {
+            nizPesama[x] = el;
+            x++;
+        }
+        // Sortiranje niza
+        for (int i = 0; i < nizPesama.Length - 1; i++)
+        {
+            for (int j = i + 1; j < nizPesama.Length; j++)
+            {
+                if (nizPesama[j].izvodjac.CompareTo(nizPesama[i].izvodjac) == -1)
+                {
+                    Pesme pom = nizPesama[i];
+                    nizPesama[i] = nizPesama[j];
+                    nizPesama[j] = pom;
+                }
+            }
+        }
+        // Prvo cistimo kolekctiju
+        collection.Clear();
+        // Zatim vracamo elemente sortiranog niza u kolekciju
+        for (int i = 0; i < nizPesama.Length; i++)
+        {
+            collection.Dodaj(nizPesama[i]);
+        }
+    }
+}
+
