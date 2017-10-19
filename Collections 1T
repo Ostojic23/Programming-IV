@@ -1,0 +1,172 @@
+using System;
+using System.Collections.Generic;
+using System.Collections; // <-- OVO OBAVEZNO DODATI
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+/// <summary>
+/// OBAVEZNO DODATI -- using System.Colections;
+/// 
+/// DictionaryEntry sluci za Collection-e tipa koji oznacavaju Objekte tipa Key:Value.
+/// Svaki obj ima svoj kljuc koji ga prepoznaje i svoju vrednost. key1 != keyN
+/// 
+/// Stack i Queue NECE BITI
+/// </summary>
+
+
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        // Ispis ArrayList
+        static void printArrayList(ArrayList arraylist)
+        {
+            foreach (Object el in arraylist)
+            {
+                Console.WriteLine(el);
+            }
+        }
+
+        // Ispis Collection Queue
+        static void printCollQS(IEnumerable collection)
+        {
+            foreach (Object el in collection)
+            {
+                Console.Write(el + " ");
+            }
+        }
+
+        // Ispis Hashtable
+        static void printHashtable(Hashtable hashtable)
+        {
+            foreach (DictionaryEntry el in hashtable)
+            {
+                Console.WriteLine(el.Key + " - " + el.Value);
+            }
+        }
+
+        // Ispis SortedList
+        static void printSortedList(SortedList sortedList)
+        {
+            foreach (DictionaryEntry el in sortedList)
+            {
+                Console.WriteLine(el.Key + " - " + el.Value);
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            // ArrayList
+            Console.WriteLine("Collection ARRAYLIST");
+            ArrayList collAL = new ArrayList(); // Definicija ArrayList
+
+            // Dodavanje imena u ArrayList
+            collAL.Add("Ime1");
+            collAL.Add("Ime2");
+            collAL.Add("Ime3");
+            collAL.Add("Ime4");
+
+            // Ispis ArrayList
+            printArrayList(collAL);
+            Console.WriteLine();
+            
+            collAL.Remove("Ime1"); // Brisanje elementa sa vrednosti Ime1
+
+            // Ispis nove ArrayList
+            printArrayList(collAL);
+            Console.WriteLine();
+         
+            collAL.Add("Ime12"); // Dodavanje elementa sa vrednosti Ime12
+
+            printArrayList(collAL); // Ispis nove ArrayList
+            Console.WriteLine();
+
+            // Queue Collections 1 2 3 -> 1 2 3 -- Nacin ispisivanja unetog niza:: Prvi unet -> Zadnji ulazi           
+            Console.WriteLine("Collection QUEUE");
+            Queue collQ = new Queue(); // Definicoja Queue Collections
+
+            // Dodavanje u Queue
+            collQ.Enqueue("Dobar");
+            collQ.Enqueue("dan");
+            collQ.Enqueue("svima!");
+
+            
+            printCollQS(collQ); // Ispis Queue
+            Console.WriteLine();
+         
+            collQ.Dequeue(); // Izbaciavanje el sa prvog mesta
+
+            printCollQS(collQ); // Ispis Queue
+            Console.WriteLine();
+
+            // Stack Collections 1 2 3 -> 3 2 1 -- Nacin ispisivanja unetog niza:: Zadnji unet -> Prvi izlazi          
+            Console.WriteLine("Collection STACK");
+            Stack collS = new Stack(); // Defininisanje Stack Collections
+
+            // Dodavanje u Stack
+            collS.Push("Dobar");
+            collS.Push("dan");
+            collS.Push("svima!");
+        
+            printCollQS(collS); // Ispis Stacka
+            Console.WriteLine();
+          
+            collS.Pop(); // Izbacivanje prvog elementa
+            printCollQS(collS); // Ispis Stacka
+            Console.WriteLine();
+          
+            collS.Push("Pushovan string"); // Dodavanje na prvo mesto u Stacku
+
+            printCollQS(collS); // Ispis Stacka
+            Console.WriteLine();
+
+            // Hashtable -- DictionaryEntry -> key:value << VAZNO Element u polju se trazi na osnovu njegovog key-a         
+            Console.WriteLine("Collection HASHTABLE");
+            Hashtable collHT = new Hashtable(); // Definisanje Hashtable
+
+
+            collHT.Add("RAD01", "Radnik1"); // Dodavanje elemenata u Hashtable
+            collHT.Add("RAD04", "Radnik2");
+            collHT.Add("RAD02", "Radnik3");
+            collHT.Add("RAD03", "Radnik4");
+            collHT.Add("RAD05", "Ranik5");
+
+            
+            printHashtable(collHT); // Ispis Hashtable
+            Console.WriteLine();
+
+            collHT.Remove("RAD01"); // Brisanje polja sa key-em RAD01
+            printHashtable(collHT); // Ispis Hashtable
+            Console.WriteLine();
+
+            // SortedList -- DictionaryEntry -> key:value << VAZNO Element u polju se trazi na osnovu njegovog key-a
+            // Definisanje dve SortedList
+            Console.WriteLine("Collection SortedList");
+            SortedList collSL1 = new SortedList(); // Prva
+            SortedList collSL2 = new SortedList(); // Druga
+
+            collSL1.Add("RUK01", "Radnik1"); // Dodavanje elemenata u Prvu
+            collSL1.Add("RAD04", "Radnik2");
+            collSL1.Add("RUK02", "Radnik3");
+            collSL1.Add("RAD03", "Radnik4");
+            collSL1.Add("ZAD05", "Radnik5");
+
+            collSL2.Add(23, "Radnik1"); // Dodavanje elemenata u Drugu
+            collSL2.Add(12, "Radnik2");
+            collSL2.Add(44, "Radnik3");
+            collSL2.Add(14, "Radnik4");
+            collSL2.Add(111, "Radnik5");
+
+
+            printSortedList(collSL1); // Ispis prve SortedList
+            Console.WriteLine();
+
+            printSortedList(collSL2); // Ispis druge SortedList
+            Console.WriteLine();
+
+            Console.ReadKey();
+
+        }
+    }
+}
