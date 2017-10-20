@@ -1,0 +1,125 @@
+using System;
+using System.Collections;
+
+/// <summary>
+/// Zadatak: Napraviti kalsu Ucenik sa ime, prezime, razred i override metoda ToString()
+/// Napraviti svoju kol sa metodama za dodavanje i brisanje prema indexu
+/// Napraviti metode za ispis i sortiranje svoje kol
+/// 
+/// Ispisati kol -> Sortirati kol -> Izbrisati el na poz 1
+/// 
+/// </summary>
+
+namespace ConsoleApp9
+{
+    // Def. klase Ucekik i nj parametara
+    public class Ucenik
+    {
+        public string ime;
+        public string prezime;
+        public int razred;
+
+        // Konstruktor
+        public Ucenik(string ime, string prezime, int razred)
+        {
+            this.ime = ime;
+            this.prezime = prezime;
+            this.razred = razred;
+        }
+        // Override metode ToString()
+        public override string ToString()
+        {
+            return ime + " " + prezime + "; " + razred + " razred";
+        }
+    }
+
+    public class MyCollection : CollectionBase
+    {
+        public void Dodaj(Ucenik uc) // Metoda za dodavanje el u kol 
+        {
+            List.Add(uc);
+        }
+        public void Ukloni(int i) // Metoda za uklanjanje el u kol
+        {
+            if (i > 0 && i < Count)
+            {
+                List.RemoveAt(i);
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Pravljenje objekata ucenik
+            Ucenik u1 = new Ucenik("Uros", "Petrovic", 4);
+            Ucenik u2 = new Ucenik("Uros", "Radojicic", 4);
+            Ucenik u3 = new Ucenik("Bane", "Rakicevic", 4);
+            Ucenik u4 = new Ucenik("Nikola", "Krsmanovic", 4);
+            Ucenik u5 = new Ucenik("Djordje", "Ostojic", 4);
+            Ucenik u6 = new Ucenik("Luka", "Lukic", 4);
+
+            MyCollection odeljenje = new MyCollection(); // Def nase kol
+            // Ubacivanje el(obj ucenik) u nasu kol
+            odeljenje.Dodaj(u1);
+            odeljenje.Dodaj(u2);
+            odeljenje.Dodaj(u3);
+            odeljenje.Dodaj(u4);
+            odeljenje.Dodaj(u5);
+            odeljenje.Dodaj(u6);
+
+            Console.WriteLine("Originalna kolekcija");
+            printCollection(odeljenje); // Ispis kolekcije uz pozivanje nase metode
+            Console.WriteLine();
+
+            Console.WriteLine("Sortiranje kolekcije");
+            sortCollection(odeljenje); // Sortiramo kolekciju uz pozivanje nase metode
+            printCollection(odeljenje); // Ispis kolekcije uz pozivanje nase metode
+            Console.WriteLine();
+
+            Console.WriteLine("Kolekcija bez ucenika na poz 1");
+            odeljenje.Ukloni(1); // Uklanjamo el uz pomoc nase metode
+            printCollection(odeljenje); // Ispis kolekcije uz pozivanje nase metode
+
+            Console.ReadKey();
+        }
+        // Metoda za ispis nase kol
+        static void printCollection(MyCollection coll)
+        {
+            foreach (Ucenik uc in coll)
+                Console.WriteLine(" " + uc);
+        }
+        // Metod za sortiranje nase kol prema prezimenu
+        static void sortCollection(MyCollection coll)
+        {
+            int x = 0;
+            Ucenik[] niz = new Ucenik[coll.Count];
+            // Prebacivanje kol u jednodimenzionalni niz
+            foreach (Ucenik el in coll)
+            {
+                niz[x] = el;
+                x++;
+            }
+            // Sortiranje 1D niza prema prezimenu
+            for (int i = 0; i < niz.Length - 1; i++)
+            {
+                for (int j = i + 1; j < niz.Length; j++)
+                {
+                    if (niz[j].prezime.CompareTo(niz[i].prezime) == -1)
+                    {
+                        Ucenik pom = niz[i];
+                        niz[i] = niz[j];
+                        niz[j] = pom;
+                    }
+                }
+            }
+            // Ciscenje kol
+            coll.Clear();
+            // Vracanje el iz 1D niza u kolekciju
+            for (int i = 0; i < niz.Length; i++)
+                coll.Dodaj(niz[i]);
+        }
+
+    }
+}
