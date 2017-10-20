@@ -1,0 +1,60 @@
+using System;
+using System.Collections;
+
+/// <summary>
+/// Zadatak: Napraviti Hashtable kolekciju proizvoda i dodati ih 7. Metod za stampanje i brisanje po vrednosti.
+/// Ispisati kol, izbrisati sa kljucem el, izbrisati po vrednosti el
+/// 
+/// </summary>
+
+namespace ConsoleApp8
+{
+    class Program
+    {
+        // Metod za sortiranje Hashtable kolekcije
+        static void printHashtable(Hashtable myHashtable) {
+            foreach (DictionaryEntry el in myHashtable)
+                Console.WriteLine(" " + el.Key + " - " + el.Value);
+        }
+        // Metod za uklanjanje elementa prema VREDNOSTI
+        static void removeByValue(Hashtable myHashtable, string value) {
+            string key = ""; 
+            foreach (DictionaryEntry el in myHashtable) {
+                if (el.Value.ToString() == value)
+                    key = el.Key.ToString();
+            }
+            myHashtable.Remove(key);
+        }
+
+        static void Main(string[] args)
+        {
+            Hashtable proizvodi = new Hashtable(); // Definisanje Hashtable kolekcije
+
+            // Ubacivanje el u kolekciju
+            proizvodi.Add("SS2A", "Monitor");
+            proizvodi.Add("OOKA", "Tastatura");
+            proizvodi.Add("OPSA", "Kuciste");
+            proizvodi.Add("99SA", "Zvucnici");
+            proizvodi.Add("OS82", "Mis");
+            proizvodi.Add("POSAA", "SDD");
+            proizvodi.Add("OLLSA", "HDD");
+
+            Console.WriteLine("Originalna Hashtable kolekcije");
+            printHashtable(proizvodi); // Ispis kol
+            Console.WriteLine();
+
+            Console.WriteLine("Bez el sa key-em OOKA(Tastatura)");
+            proizvodi.Remove("OOKA"); // Brisanje el po key-u
+            printHashtable(proizvodi); // Ispis kol
+            Console.WriteLine();
+
+            Console.WriteLine("Hashtable kolekcija bez el sa vrednosti HDD --- OLLSA - HDD");
+            removeByValue(proizvodi, "HDD"); // Brisanje el po vrednosti preko nase metode
+            printHashtable(proizvodi); // Ispis kol
+            Console.WriteLine();
+
+            Console.ReadKey();
+            
+        }
+    }
+}
