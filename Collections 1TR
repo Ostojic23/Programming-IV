@@ -1,0 +1,48 @@
+using System;
+using System.Collections; // <-- OBAVEZNO DODATI   
+
+/// <summary>
+///  Napraviti listu - automobili. Dodati 6 vrsta automobila, sortirati listu i izbaciti 
+///  elemenat na poziciji 1. Ispisati kapacitet i velicinu kolekcije. Kapacitet izjednaciti sa velicinom kolekcije
+/// </summary>
+
+namespace ConsoleApp7
+{
+    class Program
+    {
+        static void printList(ArrayList arrayList) {
+            foreach (Object el in arrayList)
+                Console.WriteLine(" " + el);
+        }
+
+        static void Main(string[] args)
+        {
+            ArrayList automobili = new ArrayList(); // Definisanje liste
+
+            // Dodavanje elemenata u listu
+            automobili.Add("BMW");
+            automobili.Add("Opel");
+            automobili.Add("Zastava");
+            automobili.Add("Mercedes Benz");
+            automobili.Add("Honda");
+            automobili.Add("Jaguar");
+
+            // Ispis velicine i kapaciteta
+            Console.WriteLine("Velicina kolekcije: " + automobili.Count + " Kapacitet kolekcije: " + automobili.Capacity);
+            automobili.Capacity = automobili.Count;
+            Console.WriteLine("Novi kapacitet kolekcije: " + automobili.Capacity);
+
+            automobili.Sort(); // Sortiranje liste
+
+            Console.WriteLine("Sortirana lista");
+            printList(automobili);
+
+            Console.WriteLine("Nova lista");
+            automobili.RemoveAt(1); // Uklanjamo el sa poz 1
+            printList(automobili);
+
+            Console.ReadKey();
+
+        }
+    }
+}
